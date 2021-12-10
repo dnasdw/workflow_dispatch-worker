@@ -56,6 +56,15 @@ async function handleRequest(request) {
   const xGithubEvent = request.headers.get("X-Github-Event") || "";
   console.log(`X-Github-Event: ${xGithubEvent}`);
   if (xGithubEvent !== "push") {
+    if (xGithubEvent === "ping") {
+      console.log("<<<<<<<<  200  --------");
+      return new Response("OK 200 pong", {
+        status: 200,
+        headers: {
+          "Content-Type": "text/plain"
+        }
+      });
+    }
     console.log("<<<<<<<<  415  --------");
     return new Response(`Invalid X-Github-Event ${xGithubEvent}`, {
       status: 415,
